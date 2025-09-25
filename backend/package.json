@@ -1,0 +1,54 @@
+{
+  "name": "zyph-backend",
+  "version": "1.0.0",
+  "description": "Backend para Zyph Technologies - API de contactos y gestión",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "echo 'Build completed'",
+    "test": "jest",
+    "lint": "eslint .",
+    "deploy": "npm run build && npm start"
+  },
+  "keywords": [
+    "api",
+    "nodejs",
+    "express",
+    "mongodb",
+    "contact-form",
+    "email"
+  ],
+  "author": "Zyph Technologies",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "nodemailer": "^6.9.7",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.0.3",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "eslint": "^8.56.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyph-technologies/backend"
+  },
+  "bugs": {
+    "url": "https://github.com/zyph-technologies/backend/issues"
+  },
+  "homepage": "https://zyph.tech"
+}
