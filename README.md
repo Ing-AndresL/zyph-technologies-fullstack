@@ -244,4 +244,4 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **Desarrollado con ❤️ por el equipo de Zyph Technologies**
 
-![Footer](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)
+![Footer](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)## ✅ Repositorio configurado correctamente con cuenta Ing-AndresL
