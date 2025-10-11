@@ -209,16 +209,6 @@ const ZyphWebsite = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <img
-                src="/assets/logo.png"
-                alt="Zyph Technologies"
-                style={{
-                  height: "32px",
-                  width: "auto",
-                  maxHeight: "100%",
-                  objectFit: "contain",
-                }} // Estilos en línea
-              />
               <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                 Zyph Technologies
               </span>
