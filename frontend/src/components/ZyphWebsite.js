@@ -210,7 +210,7 @@ const ZyphWebsite = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <img
-                src="/images/logo.png"
+                src="/assets/logo.png"
                 alt="Zyph Technologies"
                 style={{
                   height: "32px",
