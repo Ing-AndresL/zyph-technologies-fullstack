@@ -653,14 +653,16 @@ const ZyphWebsite = () => {
                     <Mail className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Email</h4>
-                      <p className="text-gray-600">contacto@zyph.tech</p>
+                      <p className="text-gray-600">
+                        contacto.zyph.tech@gmail.com
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <Phone className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Teléfono</h4>
-                      <p className="text-gray-600">+595 123 456 789</p>
+                      <p className="text-gray-600">+595 992 941 392</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
