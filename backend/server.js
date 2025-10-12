@@ -1,22 +1,24 @@
 // server.js
-const express = require('express');
-const cors = require('cors');
-const nodemailer = require('nodemailer');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const nodemailer = require("nodemailer");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware de seguridad
 app.use(helmet());
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
-}));
-app.use(express.json({ limit: '10mb' }));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Rate limiting
@@ -24,15 +26,18 @@ const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 5, // máximo 5 intentos por IP
   message: {
-    error: 'Demasiados intentos de contacto. Intenta nuevamente en 15 minutos.'
-  }
+    error: "Demasiados intentos de contacto. Intenta nuevamente en 15 minutos.",
+  },
 });
 
 // Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/zyph-web', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost:27017/zyph-web",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Esquema para contactos
 const contactSchema = new mongoose.Schema({
@@ -42,19 +47,23 @@ const contactSchema = new mongoose.Schema({
   telefono: { type: String, required: true },
   mensaje: { type: String, required: true },
   fechaCreacion: { type: Date, default: Date.now },
-  estado: { type: String, default: 'nuevo', enum: ['nuevo', 'contactado', 'cerrado'] },
-  ip: String
+  estado: {
+    type: String,
+    default: "nuevo",
+    enum: ["nuevo", "contactado", "cerrado"],
+  },
+  ip: String,
 });
 
-const Contact = mongoose.model('Contact', contactSchema);
+const Contact = mongoose.model("Contact", contactSchema);
 
 // Configuración de Nodemailer
-const transporter = nodemailer.createTransporter({
-  service: 'gmail', // o tu proveedor de email
+const transporter = nodemailer.createTransport({
+  service: "gmail", // o tu proveedor de email
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
 // Validaciones
@@ -65,20 +74,20 @@ const validateEmail = (email) => {
 
 const validatePhone = (phone) => {
   const re = /^[\+]?[1-9][\d]{0,15}$/;
-  return re.test(phone.replace(/[\s\-\(\)]/g, ''));
+  return re.test(phone.replace(/[\s\-\(\)]/g, ""));
 };
 
 // Rutas
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "OK",
     timestamp: new Date().toISOString(),
-    service: 'Zyph Technologies API'
+    service: "Zyph Technologies API",
   });
 });
 
 // Endpoint para enviar contactos
-app.post('/api/contact', contactLimiter, async (req, res) => {
+app.post("/api/contact", contactLimiter, async (req, res) => {
   try {
     const { nombre, empresa, email, telefono, mensaje } = req.body;
 
@@ -86,35 +95,35 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     if (!nombre || !empresa || !email || !telefono || !mensaje) {
       return res.status(400).json({
         success: false,
-        error: 'Todos los campos son obligatorios'
+        error: "Todos los campos son obligatorios",
       });
     }
 
     if (nombre.length < 2 || nombre.length > 50) {
       return res.status(400).json({
         success: false,
-        error: 'El nombre debe tener entre 2 y 50 caracteres'
+        error: "El nombre debe tener entre 2 y 50 caracteres",
       });
     }
 
     if (!validateEmail(email)) {
       return res.status(400).json({
         success: false,
-        error: 'Email inválido'
+        error: "Email inválido",
       });
     }
 
     if (!validatePhone(telefono)) {
       return res.status(400).json({
         success: false,
-        error: 'Teléfono inválido'
+        error: "Teléfono inválido",
       });
     }
 
     if (mensaje.length < 10 || mensaje.length > 1000) {
       return res.status(400).json({
         success: false,
-        error: 'El mensaje debe tener entre 10 y 1000 caracteres'
+        error: "El mensaje debe tener entre 10 y 1000 caracteres",
       });
     }
 
@@ -125,7 +134,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       email,
       telefono,
       mensaje,
-      ip: req.ip
+      ip: req.ip,
     });
 
     await newContact.save();
@@ -162,22 +171,22 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             </table>
             <h3 style="color: #1e293b;">Mensaje:</h3>
             <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2563eb;">
-              ${mensaje.replace(/\n/g, '<br>')}
+              ${mensaje.replace(/\n/g, "<br>")}
             </div>
             <p style="color: #64748b; font-size: 14px; margin-top: 30px;">
-              Fecha: ${new Date().toLocaleString('es-ES')}<br>
+              Fecha: ${new Date().toLocaleString("es-ES")}<br>
               IP: ${req.ip}
             </p>
           </div>
         </div>
-      `
+      `,
     };
 
     // Email de confirmación al cliente
     const mailOptionsToClient = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Gracias por contactarnos - Zyph Technologies',
+      subject: "Gracias por contactarnos - Zyph Technologies",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #2563eb, #06b6d4); padding: 30px; text-align: center;">
@@ -198,7 +207,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
               Mientras tanto, puedes seguirnos en nuestras redes sociales o explorar más sobre nuestros servicios de IA y automatización.
             </p>
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}" 
+              <a href="${process.env.FRONTEND_URL || "http://localhost:3000"}" 
                  style="background: linear-gradient(135deg, #2563eb, #06b6d4); color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
                 Visitar nuestro sitio web
               </a>
@@ -208,63 +217,62 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             </p>
           </div>
         </div>
-      `
+      `,
     };
 
     // Enviar ambos emails
     await Promise.all([
       transporter.sendMail(mailOptionsToAdmin),
-      transporter.sendMail(mailOptionsToClient)
+      transporter.sendMail(mailOptionsToClient),
     ]);
 
     res.status(201).json({
       success: true,
-      message: 'Mensaje enviado correctamente. Te contactaremos pronto.',
-      contactId: newContact._id
+      message: "Mensaje enviado correctamente. Te contactaremos pronto.",
+      contactId: newContact._id,
     });
-
   } catch (error) {
-    console.error('Error al procesar contacto:', error);
+    console.error("Error al procesar contacto:", error);
     res.status(500).json({
       success: false,
-      error: 'Error interno del servidor. Intenta nuevamente más tarde.'
+      error: "Error interno del servidor. Intenta nuevamente más tarde.",
     });
   }
 });
 
 // Endpoint para obtener estadísticas (admin)
-app.get('/api/admin/stats', async (req, res) => {
+app.get("/api/admin/stats", async (req, res) => {
   try {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    
+    const token = req.headers.authorization?.replace("Bearer ", "");
+
     if (token !== process.env.ADMIN_TOKEN) {
-      return res.status(401).json({ error: 'No autorizado' });
+      return res.status(401).json({ error: "No autorizado" });
     }
 
     const total = await Contact.countDocuments();
-    const nuevos = await Contact.countDocuments({ estado: 'nuevo' });
+    const nuevos = await Contact.countDocuments({ estado: "nuevo" });
     const ultimaSemana = await Contact.countDocuments({
-      fechaCreacion: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }
+      fechaCreacion: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
     });
 
     res.json({
       total,
       nuevos,
       ultimaSemana,
-      procesados: total - nuevos
+      procesados: total - nuevos,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener estadísticas' });
+    res.status(500).json({ error: "Error al obtener estadísticas" });
   }
 });
 
 // Endpoint para listar contactos (admin)
-app.get('/api/admin/contacts', async (req, res) => {
+app.get("/api/admin/contacts", async (req, res) => {
   try {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    
+    const token = req.headers.authorization?.replace("Bearer ", "");
+
     if (token !== process.env.ADMIN_TOKEN) {
-      return res.status(401).json({ error: 'No autorizado' });
+      return res.status(401).json({ error: "No autorizado" });
     }
 
     const page = parseInt(req.query.page) || 1;
@@ -275,7 +283,7 @@ app.get('/api/admin/contacts', async (req, res) => {
       .sort({ fechaCreacion: -1 })
       .limit(limit)
       .skip(skip)
-      .select('-ip'); // No enviar IP por privacidad
+      .select("-ip"); // No enviar IP por privacidad
 
     const total = await Contact.countDocuments();
 
@@ -285,34 +293,38 @@ app.get('/api/admin/contacts', async (req, res) => {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     });
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener contactos' });
+    res.status(500).json({ error: "Error al obtener contactos" });
   }
 });
 
 // Manejo de errores global
 app.use((error, req, res, next) => {
-  console.error('Error no manejado:', error);
+  console.error("Error no manejado:", error);
   res.status(500).json({
     success: false,
-    error: 'Error interno del servidor'
+    error: "Error interno del servidor",
   });
 });
 
 // 404 para rutas no encontradas
-app.use('*', (req, res) => {
+app.use("*", (req, res) => {
   res.status(404).json({
     success: false,
-    error: 'Ruta no encontrada'
+    error: "Ruta no encontrada",
   });
 });
 
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
-  console.log(`📧 Email configurado: ${process.env.EMAIL_USER ? '✓' : '✗'}`);
-  console.log(`🗄️  Base de datos: ${mongoose.connection.readyState === 1 ? '✓ Conectada' : '✗ Desconectada'}`);
+  console.log(`📧 Email configurado: ${process.env.EMAIL_USER ? "✓" : "✗"}`);
+  console.log(
+    `🗄️  Base de datos: ${
+      mongoose.connection.readyState === 1 ? "✓ Conectada" : "✗ Desconectada"
+    }`
+  );
 });
