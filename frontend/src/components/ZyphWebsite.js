@@ -726,7 +726,7 @@ const ZyphWebsite = () => {
             <div>
               <h4 className="font-semibold mb-4">Contacto</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>contacto@zyph.tech</li>
+                <li>contacto.zyph.tech@gmail.com</li>
                 <li>+595 992 941 392</li>
                 <li>Asunción, Paraguay</li>
               </ul>
