@@ -29,7 +29,8 @@ const ZyphWebsite = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const API_URL = "http://localhost:3001/api";
+  const API_URL =
+    "https://zyph-technologies-fullstack-production.up.railway.app/api";
 
   useEffect(() => {
     const handleScroll = () => {
