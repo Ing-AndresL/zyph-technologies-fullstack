@@ -209,6 +209,7 @@ const ZyphWebsite = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
+              <Zap className="h-8 w-8 text-blue-600" />
               <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                 Zyph Technologies
               </span>
@@ -726,7 +727,7 @@ const ZyphWebsite = () => {
               <h4 className="font-semibold mb-4">Contacto</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>contacto@zyph.tech</li>
-                <li>+595 123 456 789</li>
+                <li>+595 992 941 392</li>
                 <li>Asunción, Paraguay</li>
               </ul>
             </div>
