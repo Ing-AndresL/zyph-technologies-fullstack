@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+const sgTransport = require("nodemailer-sendgrid-transport");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
@@ -71,13 +72,14 @@ const contactSchema = new mongoose.Schema({
 const Contact = mongoose.model("Contact", contactSchema);
 
 // Configuración de Nodemailer (sin cambios en el código, el problema es de configuración externa)
-const transporter = nodemailer.createTransport({
-  service: "gmail", // o tu proveedor de email
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Recordar usar una "Contraseña de Aplicación" para Gmail.
-  },
-});
+const transporter = nodemailer.createTransport(
+  sgTransport({
+    auth: {
+      // La clave aquí es 'api_key', no 'user' o 'pass'
+      api_key: process.env.SENDGRID_API_KEY,
+    },
+  })
+);
 
 // Validaciones (sin cambios)
 const validateEmail = (email) => {
