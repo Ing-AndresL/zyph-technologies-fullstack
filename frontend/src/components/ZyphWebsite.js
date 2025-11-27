@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Zap,
   Loader2,
+  BarChart4,
 } from "lucide-react";
 
 const ZyphWebsite = () => {
@@ -170,6 +171,14 @@ const ZyphWebsite = () => {
         "Chatbots inteligentes para atención al cliente. Automatización de reportes financieros, ventas y RRHH. Flujos automatizados con Zapier, Make o APIs.",
       color: "from-indigo-500 to-blue-500",
     },
+    {
+      icon: BarChart3,
+      title: "Análisis de Datos y BI con IA",
+      description:
+        "Dashboards inteligentes en Power BI, Tableau o Looker. Modelos predictivos para ventas, clientes e inventario. Limpieza y organización de datos con Python/IA.",
+      color: "from-cyan-500 to-blue-500",
+    },
+
     {
       icon: BarChart3,
       title: "Análisis de Datos y BI con IA",
