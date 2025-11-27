@@ -15,6 +15,7 @@ import {
   Zap,
   Loader2,
   BarChart4,
+  Code,
 } from "lucide-react";
 
 const ZyphWebsite = () => {
