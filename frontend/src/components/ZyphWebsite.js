@@ -15,9 +15,6 @@ import {
   Zap,
   Loader2,
   BarChart4,
-  MonitorCheck,
-  MonitorIcon,
-  Code,
 } from "lucide-react";
 
 const ZyphWebsite = () => {
@@ -183,10 +180,10 @@ const ZyphWebsite = () => {
     },
 
     {
-      icon: Code,
-      title: "Desarrollo Web & Soluciones Digitales",
+      icon: BarChart3,
+      title: "Análisis de Datos y BI con IA",
       description:
-        "Creamos sitios web y soluciones a medida (landing, e-commerce o sistemas livianos) optimizados para captar clientes, vender online y gestionar operaciones como reservas o CRM.",
+        "Dashboards inteligentes en Power BI, Tableau o Looker. Modelos predictivos para ventas, clientes e inventario. Limpieza y organización de datos con Python/IA.",
       color: "from-cyan-500 to-blue-500",
     },
   ];
