@@ -387,24 +387,27 @@ const ZyphWebsite = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                className="group bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
               >
                 <div
                   className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
                 >
                   <service.icon className="h-8 w-8 text-white" />
                 </div>
+
                 <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
                   {service.title}
                 </h3>
+
                 <p className="text-gray-600 leading-relaxed">
                   {service.description}
                 </p>
-                <div className="mt-6">
+
+                <div className="mt-auto pt-6">
                   <button className="text-blue-600 font-semibold flex items-center space-x-2 group-hover:space-x-3 transition-all duration-300">
                     <span>Saber más</span>
                     <ChevronRight className="h-4 w-4" />
