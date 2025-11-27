@@ -180,10 +180,10 @@ const ZyphWebsite = () => {
     },
 
     {
-      icon: BarChart3,
-      title: "Análisis de Datos y BI con IA",
+      icon: Code,
+      title: "Desarrollo Web & Soluciones Digitales",
       description:
-        "Dashboards inteligentes en Power BI, Tableau o Looker. Modelos predictivos para ventas, clientes e inventario. Limpieza y organización de datos con Python/IA.",
+        "Creamos sitios web y soluciones a medida (landing, e-commerce o sistemas livianos) optimizados para captar clientes, vender online y gestionar operaciones como reservas o CRM.",
       color: "from-cyan-500 to-blue-500",
     },
   ];
@@ -429,31 +429,35 @@ const ZyphWebsite = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
+          <div className="grid lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
               <div
                 key={index}
-                className="group bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1"
               >
-                <div
-                  className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <service.icon className="h-8 w-8 text-white" />
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                  {service.title}
-                </h3>
-
-                <p className="text-gray-600 leading-relaxed">
-                  {service.description}
-                </p>
-
-                <div className="mt-auto pt-6">
-                  <button className="text-blue-600 font-semibold flex items-center space-x-2 group-hover:space-x-3 transition-all duration-300">
-                    <span>Saber más</span>
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.metrics.map((metric, metricIndex) => (
+                      <span
+                        key={metricIndex}
+                        className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold"
+                      >
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
