@@ -183,7 +183,7 @@ const ZyphWebsite = () => {
       icon: Code,
       title: "Desarrollo Web & Soluciones Digitales",
       description:
-        "Creamos sitios web y soluciones a medida (landing, e-commerce o sistemas livianos) optimizados para captar clientes, vender online y gestionar operaciones como reservas o CRM.",
+        "Sitios web y soluciones a medida (landing, e-commerce o sistemas livianos) optimizados para captar clientes, vender online y gestionar operaciones como reservas o CRM.",
       color: "from-cyan-500 to-blue-500",
     },
   ];
