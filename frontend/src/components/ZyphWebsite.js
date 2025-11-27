@@ -6,7 +6,6 @@ import {
   Brain,
   Cog,
   BarChart3,
-  Code,
   Users,
   Mail,
   Phone,
